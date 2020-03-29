@@ -1,0 +1,45 @@
+# ide fluff
+.idea
+*.iml
+*.ipr
+*.iws
+.vscode
+
+# OSX
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.python-version
+develop-eggs/
+dist/
+eggs/
+parts/
+target/
+pip-wheel-metadata/
+.flake8
+*.egg-info/
+.installed.cfg
+*.egg
+*.eggs
+*.ipynb_checkpoints
+.cache
+
+# editor
+.vim
+
+# protobuf
+*_pb2_grpc.py
+*_pb2.py
+
+# testing
+.pytest_cache
+.hypothesis
+
+# terrafrom
+.terraform
+terraform.*
+.terraform.*
