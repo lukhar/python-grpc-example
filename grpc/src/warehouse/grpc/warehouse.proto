@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+
+service Products {
+    rpc AddOrUpdate (Product) returns (Product) {}
+    rpc Delete (ProductQuery) returns (google.protobuf.Empty) {}
+    rpc Query (ProductQuery) returns (stream Product) {}
+}
+
+
+service Orders {
+    rpc Place(stream Order) returns (stream Confirmation) {}
+}
+
+
+message Product {
+    int64 id = 1;
+    string name = 2;
+    int64 amount = 3;
+}
+
+message ProductQuery {
+    int64 id = 1;
+} 
+
+message Order {
+    int64 id = 1;
+    int64 amount = 2;
+}
+
+message Confirmation {
+    Product product = 1;
+    Status status = 2;
+    
+    enum Status {
+        APPROVED = 0;
+        DECLINED = 1;
+    }
+}
