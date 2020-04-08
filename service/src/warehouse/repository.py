@@ -1,0 +1,2 @@
+class InMemoryProductRepository:
+    pass
