@@ -1,8 +1,8 @@
-import grpc
 import time
-
 from concurrent import futures
-from warehouse.grpc import warehouse_pb2, warehouse_pb2_grpc
+
+import grpc
+from warehouse.grpc import warehouse_pb2_grpc
 from warehouse.repository import InMemoryProductRepository
 from warehouse.service import ProductsService
 
@@ -16,9 +16,7 @@ class Server:
         self._port = port
         self._server.add_insecure_port(f"[::]:{self._port}")
 
-        warehouse_pb2_grpc.add_ProductsServicer_to_server(
-            ProductsService(products_repository), self._server
-        )
+        warehouse_pb2_grpc.add_ProductsServicer_to_server(ProductsService(products_repository), self._server)
 
     @property
     def port(self):
