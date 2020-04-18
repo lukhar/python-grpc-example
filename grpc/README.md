@@ -1,9 +1,3 @@
 # grpc
 
-
-
-## Development
-
-1. Create virtual environment for the project with your favourite tool (ex. `pyenv`, `conda`)
-2. Install latest version of [poetry](https://github.com/python-poetry/poetry)
-3. Run `poetry install` to install the dependencies.
+This module contains `.proto` defintions of the `grpc` messages and services. To generate `protobuf` python bindings from the defintion file run `inv protogen` from the root directory of the project.
