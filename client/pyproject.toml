@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "client"
+name = "warehouse-client"
 version = "0.1.0"
 description = ""
 authors = [
-
+  "lukhar <lukasz.har@gmail.com>"
 ]
 
 packages = [
@@ -12,6 +12,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
+warehouse-grpc = {path = "../grpc"}
 
 [tool.poetry.dev-dependencies]
 pytest = "5.3.2"

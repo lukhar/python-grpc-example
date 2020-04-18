@@ -1,11 +1,9 @@
 [tool.poetry]
-name = "grpc"
+name = "warehouse-grpc"
 version = "0.1.0"
 description = ""
 authors = [
-
-  "lukhar <lukasz.har@quantcast.com>"
-
+  "lukhar <lukasz.har@gmail.com>"
 ]
 
 packages = [
