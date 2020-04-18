@@ -18,3 +18,9 @@ def server():
 def products_client(server):
     with grpc.insecure_channel(f"localhost:{server.port}") as channel:
         yield warehouse_pb2_grpc.ProductsStub(channel)
+
+
+@pytest.fixture
+def orders_client(server):
+    with grpc.insecure_channel(f"localhost:{server.port}") as channel:
+        yield warehouse_pb2_grpc.OrdersStub(channel)

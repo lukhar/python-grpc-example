@@ -28,5 +28,19 @@ class ProductsService(warehouse_pb2_grpc.ProductsServicer):
 
 
 class OrdersService(warehouse_pb2_grpc.OrdersServicer):
+    def __init__(self, repository: InMemoryProductRepository) -> None:
+        self._products = repository
+
     def Place(self, orders: Iterable[warehouse_pb2.Order], context) -> Iterable[warehouse_pb2.Confirmation]:
-        raise NotImplementedError
+        for order in orders:
+            product = self._products.query(product_id=order.id)
+            if product and order.amount <= product.amount:
+                yield warehouse_pb2.Confirmation(
+                    status=warehouse_pb2.Confirmation.Status.APPROVED,
+                    product=warehouse_pb2.Product(id=product.id, name=product.name, amount=order.amount),
+                )
+                self._products.upsert(
+                    warehouse_pb2.Product(id=product.id, name=product.name, amount=product.amount - order.amount)
+                )
+            else:
+                yield warehouse_pb2.Confirmation(status=warehouse_pb2.Confirmation.Status.DECLINED)

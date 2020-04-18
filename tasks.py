@@ -28,14 +28,15 @@ def clean(ctx, include_lock=False):
     print("Cleaning build and runtime artifacts")
 
     artifacts_to_delete = (
-        config["runtime_artifacts"] + config["build_artifacts"] + (["poetry.lock"]
-        if include_lock
-        else [])
+        config["runtime_artifacts"]
+        + config["build_artifacts"]
+        + (["poetry.lock"] if include_lock else [])
     )
 
     for artifact in artifacts_to_delete:
         command = f"find . -name {artifact} | xargs rm -rfv"
         ctx.run(command)
+
 
 @task
 def protogen(ctx):
@@ -67,7 +68,6 @@ def resolve(ctx, rich_output=True):
         ctx.run("poetry install -vvv", pty=rich_output)
 
 
-
 @task
 def init(ctx, include_lock=False, rich_output=True):
     clean(ctx, include_lock)
@@ -77,7 +77,12 @@ def init(ctx, include_lock=False, rich_output=True):
 
 @task
 def format(ctx):
-    ctx.run("black .")
+    with ctx.cd("service"):
+        ctx.run("black .")
+    with ctx.cd("grpc"):
+        ctx.run("black .")
+    with ctx.cd("client"):
+        ctx.run("black .")
 
 
 @task

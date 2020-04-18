@@ -4,19 +4,22 @@ from concurrent import futures
 import grpc
 from warehouse.grpc import warehouse_pb2_grpc
 from warehouse.repository import InMemoryProductRepository
-from warehouse.service import ProductsService
+from warehouse.service import OrdersService, ProductsService
 
 
 class Server:
 
     ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
-    def __init__(self, products_repository=InMemoryProductRepository(), port=50051, max_workers=10):
+    def __init__(
+        self, products_repository=InMemoryProductRepository(), port=50051, max_workers=10,
+    ):
         self._server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
         self._port = port
         self._server.add_insecure_port(f"[::]:{self._port}")
 
         warehouse_pb2_grpc.add_ProductsServicer_to_server(ProductsService(products_repository), self._server)
+        warehouse_pb2_grpc.add_OrdersServicer_to_server(OrdersService(products_repository), self._server)
 
     @property
     def port(self):
