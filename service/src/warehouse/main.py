@@ -1,6 +1,8 @@
 import time
 from concurrent import futures
 
+from loguru import logger
+
 import grpc
 from warehouse.grpc import warehouse_pb2_grpc
 from warehouse.repository import InMemoryProductRepository
@@ -30,6 +32,8 @@ class Server:
             timeout = Server.ONE_DAY_IN_SECONDS
 
         self._server.start()
+
+        logger.info("Started grpc sever on: {self.port}")
 
         if testing:
             return

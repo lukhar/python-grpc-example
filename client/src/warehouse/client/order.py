@@ -1,5 +1,7 @@
-import click
 import json
+
+import click
+from loguru import logger
 
 import grpc
 from warehouse.grpc import warehouse_pb2, warehouse_pb2_grpc
@@ -23,13 +25,14 @@ def order(ctx, host, port):
 @click.pass_context
 @click.argument("orders")
 def place(ctx, orders):
+    logger.info(f"Ordering: {orders}")
     orders = json.loads(orders)
     with _channel(ctx.obj["host"], ctx.obj["port"]) as channel:
         client = warehouse_pb2_grpc.OrdersStub(channel)
         for confirmation in client.Place(
             warehouse_pb2.Order(id=order["id"], amount=order["amount"]) for order in orders
         ):
-            print(confirmation)
+            logger.info(f"Product status:\n {confirmation}")
 
 
 if __name__ == "__main__":

@@ -88,8 +88,3 @@ def format(ctx):
 @task
 def test(ctx, rich_output=True):
     ctx.run("pytest -s --show-capture=no", pty=rich_output)
-
-
-@task(pre=[call(test, rich_output=False)])
-def build(ctx, rich_output=True):
-    ctx.run("poetry build", pty=rich_output)
