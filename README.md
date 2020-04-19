@@ -1,10 +1,10 @@
 # python-grpc-example
 
-A very simple python grpc project example simulating a warehouse. We can manage the stock using product API and places orders with order API.
+A very simple python grpc project example simulating a warehouse. We can manage the stock using `product` API and place orders with `order` API.
 
 ## Project Structure
 
-The project is separate into 3 independent modules each managed by `poetry`:
+The project is separated into 3 independent modules each managed by `poetry`:
 
 * `grpc` - this is where the `grpc` protobuf definitions and python biding live. It's possible to build and publish it independently so consumers of the API can implement their own clients to the warehouse service
 
