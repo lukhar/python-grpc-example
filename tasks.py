@@ -1,7 +1,7 @@
 import site
 from builtins import print
 
-from invoke import task, call
+from invoke import task
 
 config = dict(
     build_artifacts=[
